@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>학생 과학 프로젝트 접속</title>
+  <style>
+    body { text-align: center; padding: 50px 20px; font-family: sans-serif; }
+    .btn { display: inline-block; padding: 15px 30px; background-color: #007bff; color: white; text-decoration: none; border-radius: 8px; font-size: 18px; font-weight: bold; margin-top: 20px; }
+    .warning { color: #d9534f; font-size: 14px; margin-top: 20px; }
+  </style>
+  <script>
+    // 1. 배포하신 구글 앱스크립트 주소 입력
+    var gasUrl = "https://script.google.com/macros/s/AKfycbxl2XoU4r21qBM-TRs3IEAWXElyvJeTRSwLWGKfd04lQqcqlGqrK80fwLJBKBCZga0XxA/exec"; 
+    var ua = navigator.userAgent.toLowerCase();
+
+    window.onload = function() {
+      // 2. 카카오톡 인앱 브라우저 감지 시 외부 브라우저 강제 호출 (안드로이드/iOS 카카오톡 공통)
+      if (ua.indexOf('kakaotalk') > -1) {
+        location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(gasUrl);
+      } 
+      // 3. 네이버 및 기타 인앱 브라우저 처리 (안드로이드 intent 활용)
+      else if (ua.indexOf('naver') > -1 && ua.indexOf('android') > -1) {
+        location.href = 'intent:' + gasUrl.replace(/https?:\/\//i, '') + '#Intent;scheme=https;package=com.android.chrome;end';
+      }
+      // 일반 브라우저에서는 바로 이동
+      else if (ua.indexOf('kakaotalk') == -1 && ua.indexOf('naver') == -1 && ua.indexOf('instagram') == -1) {
+        location.href = gasUrl;
+      }
+    };
+  </script>
+</head>
+<body>
+  <h2>과학 콘텐츠 프로젝트</h2>
+  <p>자동으로 이동하지 않는다면 아래 버튼을 눌러주세요.</p>
+  
+  <a href="https://script.google.com/macros/s/AKfycbxl2XoU4r21qBM-TRs3IEAWXElyvJeTRSwLWGKfd04lQqcqlGqrK80fwLJBKBCZga0XxA/exec" target="_blank" class="btn">프로젝트 보러가기</a>
+  
+  <p class="warning">⚠️ 오류가 발생하면 화면 우측 상단이나 하단의 [⋮] 버튼을 눌러<br><strong>'다른 브라우저로 열기'</strong>를 선택해 주세요.</p>
+</body>
+</html>
